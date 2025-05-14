@@ -43,6 +43,19 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
+  <distributionManagement>
+  <repository>
+    <id>central</id> <!-- Quan trọng: phải khớp với server-id -->
+    <name>Maven Central Repository</name>
+    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  </repository>
+  <snapshotRepository>
+    <id>central</id>
+    <name>Maven Central Snapshots</name>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+  </snapshotRepository>
+</distributionManagement>
+
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
