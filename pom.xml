@@ -109,16 +109,4 @@
     </dependency>
   </dependencies>
 
-  <profiles>
-  <profile>
-    <id>central-release</id>
-    <activation>
-      <activeByDefault>true</activeByDefault>
-    </activation>
-    <properties>
-      <gpg.skip>true</gpg.skip> <!-- GPG signing is now handled automatically -->
-    </properties>
-  </profile>
-</profiles>
-
 </project>
