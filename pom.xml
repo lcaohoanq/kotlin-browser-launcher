@@ -41,6 +41,7 @@
     <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <dokka.version>1.9.10</dokka.version>
   </properties>
 
   <distributionManagement>
@@ -81,6 +82,42 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Source JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Dokka for Kotlin documentation (instead of Javadoc) -->
+      <plugin>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <version>${dokka.version}</version>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>javadocJar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectories>
+            <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+          </sourceDirectories>
+        </configuration>
+      </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
@@ -111,6 +148,17 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.7.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -121,5 +169,13 @@
       <version>${kotlin.version}</version>
     </dependency>
   </dependencies>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jcenter</id>
+      <name>JCenter</name>
+      <url>https://jcenter.bintray.com/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
